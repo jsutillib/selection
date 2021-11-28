@@ -1,0 +1,4 @@
+.grabbable {
+    cursor: grab;
+    z-index: 4;
+}
