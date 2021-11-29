@@ -16,8 +16,8 @@
 
 (function(exports, document) {
     "use strict";
-    if (exports.jsutils === undefined) {
-        exports.jsutils = {};
+    if (exports.jsutillib === undefined) {
+        exports.jsutillib = {};
     }
 
     function sizable(el, options = {}) {
@@ -263,5 +263,5 @@
             this._sizable.activate();
         })
     }    
-    exports.jsutils.sizable = sizable;
+    exports.jsutillib.sizable = sizable;
 })(window, document);

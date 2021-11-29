@@ -16,8 +16,8 @@
 
 (function(exports, document) {
     "use strict";
-    if (exports.jsutils === undefined) {
-        exports.jsutils = {};
+    if (exports.jsutillib === undefined) {
+        exports.jsutillib = {};
     }
     function grabbable(el, options = {}) {
         if (options === false) {
@@ -138,13 +138,13 @@
         });
         return el;
     }
-    exports.jsutils.grabbable = grabbable;
+    exports.jsutillib.grabbable = grabbable;
 })(window, document);
 
 (function(exports, document) {
     "use strict";
-    if (exports.jsutils === undefined) {
-        exports.jsutils = {};
+    if (exports.jsutillib === undefined) {
+        exports.jsutillib = {};
     }
     function selectable(el, options = {}) {
         if (options === false) {
@@ -317,13 +317,13 @@
         });
         return el;
     }
-    exports.jsutils.selectable = selectable;
+    exports.jsutillib.selectable = selectable;
 })(window, document);
 
 (function(exports, document) {
     "use strict";
-    if (exports.jsutils === undefined) {
-        exports.jsutils = {};
+    if (exports.jsutillib === undefined) {
+        exports.jsutillib = {};
     }
     function sizable(el, options = {}) {
         if (options === false) {
@@ -533,5 +533,5 @@
             this._sizable.activate();
         });
     }
-    exports.jsutils.sizable = sizable;
+    exports.jsutillib.sizable = sizable;
 })(window, document);
