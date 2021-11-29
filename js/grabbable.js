@@ -16,8 +16,8 @@
 
 (function(exports, document) {
     "use strict";
-    if (exports.jsutillib === undefined) {
-        exports.jsutillib = {};
+    if (exports.jsutilslib === undefined) {
+        exports.jsutilslib = {};
     }
     
     function grabbable(el, options = {}) {
@@ -156,5 +156,5 @@
         return el;
     }
 
-    exports.jsutillib.grabbable = grabbable;
+    exports.jsutilslib.grabbable = grabbable;
 })(window, document);

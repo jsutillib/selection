@@ -16,8 +16,8 @@
 
 (function(exports, document) {
     "use strict";
-    if (exports.jsutillib === undefined) {
-        exports.jsutillib = {};
+    if (exports.jsutilslib === undefined) {
+        exports.jsutilslib = {};
     }
 
     function selectable(el, options = {}) {
@@ -221,5 +221,5 @@
         return el;
     }
 
-    exports.jsutillib.selectable = selectable;
+    exports.jsutilslib.selectable = selectable;
 })(window, document);
