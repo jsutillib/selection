@@ -42,8 +42,8 @@
             let dx = e.clientX - grabbable.initial.x0 + $("body").scrollLeft();
             let dy = e.clientY - grabbable.initial.y0 + $("body").scrollTop();
             $el.offset({
-                left: grabbable.initial.position.left + dx,
-                top: grabbable.initial.position.top + dy
+                left: grabbable.initial.position.left + grabbable.initial.parent.left + dx,
+                top: grabbable.initial.position.top + grabbable.initial.parent.top + dy
             });
             $el.get(0).dispatchEvent(new CustomEvent("grabbable-move", {
                 detail: {
@@ -59,6 +59,8 @@
             e.stopImmediatePropagation();
             $el.get(0).dispatchEvent(new Event("object-dragged"));
             let grabbable = $el.get(0)._grabbable;
+            let dx = e.clientX - grabbable.initial.x0 + $("body").scrollLeft();
+            let dy = e.clientY - grabbable.initial.y0 + $("body").scrollTop();
             $(document).off("mousemove", grabbable.handlers.document_mousemove);
             $(document).off("mouseup", grabbable.handlers.document_mouseup);
             if (grabbable.settings.classdragging !== null) $el.removeClass(grabbable.settings.classdragging);
@@ -68,7 +70,7 @@
                 }
             }));
             if (typeof grabbable.settings.callbackend === "function") {
-                grabbable.settings.callbackend.bind($el)();
+                grabbable.settings.callbackend.bind($el)(dx, dy);
             }
         }
         function on_mousedown(e, $el) {
@@ -395,7 +397,15 @@
                 }
             }));
             if (typeof sizable.settings.callbackend === "function") {
-                sizable.settings.callbackend.bind(sizable.$sized)();
+                let diffx = e.clientX - sizable.initial.x0 + $("body").scrollLeft();
+                let diffy = e.clientY - sizable.initial.y0 + $("body").scrollTop();
+                let position = sizable.initial.position;
+                let parent = sizable.initial.parent;
+                let y = position.top - parent.top + diffy * sizable.deltas.dy;
+                let x = position.left - parent.left + diffx * sizable.deltas.dx;
+                let width = Math.max(0, position.width + diffx * sizable.deltas.dw);
+                let height = Math.max(0, position.height - diffy * sizable.deltas.dh);
+                sizable.settings.callbackend.bind(sizable.$sized)(x, y, width, height);
             }
         }
         function on_mousedown(e, $el) {

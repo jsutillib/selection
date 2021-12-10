@@ -111,7 +111,19 @@
             // Call the callback if needed
             sizable.$sized.get(0).dispatchEvent(new CustomEvent('sizable-end', { detail: { sized: sizable.$sized }}));
             if (typeof sizable.settings.callbackend === 'function') {
-                sizable.settings.callbackend.bind(sizable.$sized)();
+                // Calculate the amount of space moved
+                let diffx = e.clientX - sizable.initial.x0 + $('body').scrollLeft();
+                let diffy = e.clientY - sizable.initial.y0 + $('body').scrollTop();
+
+                // Calculate the new position of the element to be sized (according to the delta multipliers and the initial position)
+                let position = sizable.initial.position;
+                let parent = sizable.initial.parent;
+                let y = position.top - parent.top + diffy * sizable.deltas.dy;
+                let x = position.left - parent.left + diffx * sizable.deltas.dx;
+                let width = Math.max(0, position.width + diffx * sizable.deltas.dw);
+                let height = Math.max(0, position.height - diffy * sizable.deltas.dh);
+                
+                sizable.settings.callbackend.bind(sizable.$sized)(x, y, width, height);
             }
         };
 

@@ -53,7 +53,10 @@
             let dx = e.clientX - grabbable.initial.x0 + $('body').scrollLeft();
             let dy = e.clientY - grabbable.initial.y0 + $('body').scrollTop();
 
-            $el.offset({left: grabbable.initial.position.left + dx, top: grabbable.initial.position.top + dy});
+            $el.offset({
+                left: grabbable.initial.position.left + grabbable.initial.parent.left + dx, 
+                top: grabbable.initial.position.top  + grabbable.initial.parent.top + dy
+            });
 
             $el.get(0).dispatchEvent(new CustomEvent('grabbable-move', { detail: { grabbed: $el }}));
             if (typeof grabbable.settings.callbackmove === 'function') {
@@ -68,6 +71,8 @@
             $el.get(0).dispatchEvent(new Event('object-dragged'));
 
             let grabbable = $el.get(0)._grabbable;
+            let dx = e.clientX - grabbable.initial.x0 + $('body').scrollLeft();
+            let dy = e.clientY - grabbable.initial.y0 + $('body').scrollTop();
 
             $(document).off('mousemove', grabbable.handlers.document_mousemove);
             $(document).off('mouseup', grabbable.handlers.document_mouseup);
@@ -77,7 +82,7 @@
 
             $el.get(0).dispatchEvent(new CustomEvent('grabbable-end', { detail: { grabbed: $el }}));
             if (typeof grabbable.settings.callbackend === 'function') {
-                grabbable.settings.callbackend.bind($el)();
+                grabbable.settings.callbackend.bind($el)(dx, dy);
             }
         };
 
